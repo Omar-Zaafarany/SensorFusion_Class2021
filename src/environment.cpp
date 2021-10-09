@@ -8,14 +8,24 @@
 // using templates for processPointClouds so also include .cpp to help linker
 #include "processPointClouds.cpp"
 
+// Function Name: initHighway
+// Function Description: Initialize the 3D scene with highway constructed from egoCar (Host Car) and surrounding cars 
+// Inputs:
+        // - renderScene : whether to render the highwayscene or not
+        // - viewer: pointer to the PCL visualizer
+// Outputs: vector of the constructed cars
+
 std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
-
+    // Construction of each car in the scene using the following constructor 
+    // Car(Vect3 setPosition, Vect3 setDimensions, Color setColor, std::string setName)
+    // Each of the inputs is a vector of dimention 1x3.
     Car egoCar( Vect3(0,0,0), Vect3(4,2,2), Color(0,1,0), "egoCar");
     Car car1( Vect3(15,0,0), Vect3(4,2,2), Color(0,0,1), "car1");
     Car car2( Vect3(8,-4,0), Vect3(4,2,2), Color(0,0,1), "car2");	
     Car car3( Vect3(-12,4,0), Vect3(4,2,2), Color(0,0,1), "car3");
   
+    // Constructing a vector of all the constructed cars.   
     std::vector<Car> cars;
     cars.push_back(egoCar);
     cars.push_back(car1);
@@ -34,7 +44,11 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
     return cars;
 }
 
-
+// Function Name: simpleHighway
+// Function Description: Open 3D viewer and display simple highway
+// Inputs:
+        // - viewer: pointer to the PCL visualizer
+// Outputs: Non
 void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
     // ----------------------------------------------------
@@ -48,11 +62,15 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     // TODO:: Create lidar sensor 
 
     // TODO:: Create point processor
-  
 }
 
+// Function Name: initCamera
+// Function Description: adjust the camera position in the scene
+// Inputs:
+        // - setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Sideview, FPS}
+        // - viewer: pointer to the PCL visualizer
+// Outputs: Non
 
-//setAngle: SWITCH CAMERA ANGLE {XY, TopDown, Side, FPS}
 void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& viewer)
 {
 
@@ -65,6 +83,8 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
     
     switch(setAngle)
     {
+        // XY gives a 45 degree angle view, 
+        // while FPS is First Person Sense and gives the sensation of being in the car’s driver seat.
         case XY : viewer->setCameraPosition(-distance, -distance, distance, 1, 1, 0); break;
         case TopDown : viewer->setCameraPosition(0, 0, distance, 1, 0, 1); break;
         case Side : viewer->setCameraPosition(0, -distance, 0, 0, 0, 1); break;
@@ -75,6 +95,8 @@ void initCamera(CameraAngle setAngle, pcl::visualization::PCLVisualizer::Ptr& vi
         viewer->addCoordinateSystem (1.0);
 }
 
+// Function Name: Main Function
+// Function Description: Initialize viewer - Initialize camera position - Plot the highway scene
 
 int main (int argc, char** argv)
 {

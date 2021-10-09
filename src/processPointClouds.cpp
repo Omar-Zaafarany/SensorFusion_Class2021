@@ -3,16 +3,22 @@
 #include "processPointClouds.h"
 
 
-//constructor:
+// Function Name: Constructor for the class "ProcessPointClouds"
+// Function Description: This class contains all methods that will be used to process the lidar pointcloud
 template<typename PointT>
 ProcessPointClouds<PointT>::ProcessPointClouds() {}
 
 
-//de-constructor:
+// Function Name: de-constructor for the class "ProcessPointClouds"
 template<typename PointT>
 ProcessPointClouds<PointT>::~ProcessPointClouds() {}
 
 
+// Function Name: numPoints
+// Function Description: Prints the number of points available in the pointcloud
+// Inputs:
+        // - cloud: pointCloud to be processed
+// Outputs: Non
 template<typename PointT>
 void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr cloud)
 {
@@ -20,6 +26,15 @@ void ProcessPointClouds<PointT>::numPoints(typename pcl::PointCloud<PointT>::Ptr
 }
 
 
+// Function Name: FilterCloud
+// Function Description: - Filter the point cloud data 
+                            // - Downsample the data for faster processing
+                            // - According to the region of interest
+//                       - Compute a time cost of the function 
+// Inputs:
+        // - cloud: pointCloud to be processed
+        // - filterRes: the resolution of the data that will be processed after that
+// Outputs: Non
 template<typename PointT>
 typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::FilterCloud(typename pcl::PointCloud<PointT>::Ptr cloud, float filterRes, Eigen::Vector4f minPoint, Eigen::Vector4f maxPoint)
 {
@@ -38,6 +53,13 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::FilterCloud(ty
 }
 
 
+// Function Name: SeparateClouds
+// Function Description: 
+// Inputs:
+        // - inliers: 
+        // - cloud: pointCloud to be processed
+// Outputs: 
+        // - segResult: 
 template<typename PointT>
 std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::SeparateClouds(pcl::PointIndices::Ptr inliers, typename pcl::PointCloud<PointT>::Ptr cloud) 
 {
@@ -47,7 +69,14 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
     return segResult;
 }
 
-
+// Function Name: SegmentPlane
+// Function Description: Do plane Segmentatio to detect the road carpet using RANSAC algorithm
+// Inputs:
+        // - cloud: pointCloud to be processed
+        // - maxIterations: Maximum number of iletrations for the algorithm 
+        // - distanceThreshold: Maximum distance, a way from the trial plane, for a point to be added to the cluster 
+// Outputs: 
+        // - segResult: 
 template<typename PointT>
 std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::SegmentPlane(typename pcl::PointCloud<PointT>::Ptr cloud, int maxIterations, float distanceThreshold)
 {
@@ -65,6 +94,15 @@ std::pair<typename pcl::PointCloud<PointT>::Ptr, typename pcl::PointCloud<PointT
 }
 
 
+// Function Name: Clustering
+// Function Description: Do Ecludean clustering for detecting objects
+// Inputs:
+        // - cloud: pointCloud to be processed
+        // - clusterTolerance: Maximum redius of the cluster
+        // - minSize: Minimum no. of points to be considered as a cluster/object
+        // - maxSize: Maximum no. of points to be considered as a cluster/object
+// Outputs: 
+        // - clusters: Vector of pointclouds pointers. i.e vector of pointers to objects' first points
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::Clustering(typename pcl::PointCloud<PointT>::Ptr cloud, float clusterTolerance, int minSize, int maxSize)
 {
@@ -84,6 +122,12 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
 }
 
 
+// Function Name: BoundingBox
+// Function Description: Plotting 3D Boundary box around the detected cluster/object
+// Inputs:
+        // - cluster: group of points the belongto the same object
+// Outputs: 
+        // - box: 3d Bounding box (structure of [min, max][x;y;z])
 template<typename PointT>
 Box ProcessPointClouds<PointT>::BoundingBox(typename pcl::PointCloud<PointT>::Ptr cluster)
 {
@@ -104,6 +148,12 @@ Box ProcessPointClouds<PointT>::BoundingBox(typename pcl::PointCloud<PointT>::Pt
 }
 
 
+// Function Name: savePcd
+// Function Description: save pointcloud to a certain path
+// Inputs:
+        // - cloud: pointCloud to be processed
+        // - file: output file path
+// Outputs: Non
 template<typename PointT>
 void ProcessPointClouds<PointT>::savePcd(typename pcl::PointCloud<PointT>::Ptr cloud, std::string file)
 {
@@ -112,6 +162,12 @@ void ProcessPointClouds<PointT>::savePcd(typename pcl::PointCloud<PointT>::Ptr c
 }
 
 
+// Function Name: loadPcd
+// Function Description: load pointcloud from a certain path
+// Inputs:
+        // - file: input file path
+// Outputs: 
+        // - cloud: loaded pointCloud
 template<typename PointT>
 typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::loadPcd(std::string file)
 {
@@ -128,6 +184,12 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::loadPcd(std::s
 }
 
 
+// Function Name: streamPcd
+// Function Description: sort files that are in a certain directory in accending order so playback is chronological
+// Inputs:
+        // - dataPath: input directory path
+// Outputs: 
+        // - paths: vector containing sorted paths of point cloud data in this directory
 template<typename PointT>
 std::vector<boost::filesystem::path> ProcessPointClouds<PointT>::streamPcd(std::string dataPath)
 {

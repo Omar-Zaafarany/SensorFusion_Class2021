@@ -2,9 +2,9 @@
 
 <img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
 
-## Classroom Workspace
+## Local Installation
 
-The workspace provided in the SFND classroom comes preinstallated with everything that you need to finish the exercises and projects. Versions used by Udacity for this ND are as follows:
+Versions used by Udacity for this ND are as follows:
 
 * Ubuntu 20.04.1 LTS
 * PCL - v1.7.2
@@ -14,9 +14,7 @@ The workspace provided in the SFND classroom comes preinstallated with everythin
 **Note** The [[CMakeLists.txt](https://github.com/udacity/SFND_Lidar_Obstacle_Detection/blob/master/CMakeLists.txt)] file provided in this repo can be used locally if you have the same package versions as mentioned above. If you want to run this project locally (outside the Udacity workspace), please follow the steps under the **Local Installation** section.
 
 
-## Local Installation
-
-### Ubuntu 
+### Ubuntu
 
 1. Clone this github repo:
 
@@ -37,8 +35,7 @@ The workspace provided in the SFND classroom comes preinstallated with everythin
    
    project(playback)
    
-   find_package(PCL 1.11 REQUIRED)
-   
+   find_package(PCL 1.10 REQUIRED)
    include_directories(${PCL_INCLUDE_DIRS})
    link_directories(${PCL_LIBRARY_DIRS})
    add_definitions(${PCL_DEFINITIONS})
@@ -63,11 +60,13 @@ The workspace provided in the SFND classroom comes preinstallated with everythin
    This should install the latest version of PCL. You should be able to do all the classroom exercises and project with this setup.
 
 4. For debugging purposes, follow the below steps:
+	```
 	A. Install Visual Studio code
 	B. Install "C/C++" extention
 	C. Install "CMake" and "CMake Tools" extention
-	D. At the bottom of the screen, select CMake:debug:ready
+	D. At the bottom of the screen, select CMake:debug:ready -> debug
 	E. Set the default build target to "environment"
+   F. Runa and Debug ctrl+shift+D -> create launch file ->> c++(GDB/LLDB)
 	F. At launch.json, set "program": "${workspaceFolder}/environment"
 	G. Select build, then Debug
-
+	```
