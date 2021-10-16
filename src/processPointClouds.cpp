@@ -54,7 +54,7 @@ typename pcl::PointCloud<PointT>::Ptr ProcessPointClouds<PointT>::FilterCloud(ty
 
 
 // Function Name: SeparateClouds
-// Function Description: 
+// Function Description: Create two new point clouds, one cloud with obstacles and other with segmented plane
 // Inputs:
         // - inliers: 
         // - cloud: pointCloud to be processed

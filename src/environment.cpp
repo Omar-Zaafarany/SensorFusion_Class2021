@@ -60,8 +60,19 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
     // TODO:: Create lidar sensor 
+    Lidar lidar =  Lidar(cars, 0);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = lidar.scan(); 
 
+    renderRays(viewer, lidar.position, cloud);
+    renderPointCloud(viewer, cloud, "vvvv", Color(1,1,0));
     // TODO:: Create point processor
+
+    ProcessPointClouds<pcl::PointXYZ> PPC = ProcessPointClouds<pcl::PointXYZ>();
+
+    // Segmentation
+    // Clustering
+    // rendering
+    // Bounding Box
 }
 
 // Function Name: initCamera
