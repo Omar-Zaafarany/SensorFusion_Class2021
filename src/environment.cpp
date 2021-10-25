@@ -32,6 +32,7 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
     cars.push_back(car2);
     cars.push_back(car3);
 
+    //  if True: Rendering the whole scene to be plotted in the 3D plot
     if(renderScene)
     {
         renderHighway(viewer);
@@ -56,23 +57,43 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     // ----------------------------------------------------
     
     // RENDER OPTIONS
-    bool renderScene = true;
+    bool renderScene = false;
     std::vector<Car> cars = initHighway(renderScene, viewer);
     
     // TODO:: Create lidar sensor 
     Lidar lidar =  Lidar(cars, 0);
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud = lidar.scan(); 
 
-    renderRays(viewer, lidar.position, cloud);
-    renderPointCloud(viewer, cloud, "vvvv", Color(1,1,0));
+    // renderRays(viewer, lidar.position, cloud);
+    // renderPointCloud(viewer, cloud, "vvvv", Color(1,1,0));
+
     // TODO:: Create point processor
+    ProcessPointClouds<pcl::PointXYZ>* ppc = new ProcessPointClouds<pcl::PointXYZ>();
 
-    ProcessPointClouds<pcl::PointXYZ> PPC = ProcessPointClouds<pcl::PointXYZ>();
+    // segmentation
+    std::pair<pcl::PointCloud<pcl::PointXYZ>::Ptr, pcl::PointCloud<pcl::PointXYZ>::Ptr> seg_result_pair = ppc->SegmentPlane(cloud, 100, 0.2);
 
-    // Segmentation
-    // Clustering
-    // rendering
-    // Bounding Box
+    renderPointCloud(viewer, seg_result_pair.second, "HAMADA",Color(1,1,0));
+
+    
+    // cluster
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> clusters_cloud = ppc->Clustering(seg_result_pair.first, 1.0, 3, 30);
+
+
+    // render cluster
+    int cluster_id = 0;
+    std::vector<Color> colors = {Color(1,0,0), Color(0,1,0), Color(0,0,1)};
+    for (pcl::PointCloud<pcl::PointXYZ>::Ptr cluster: clusters_cloud)
+    {
+        // render cluster point cloud
+        renderPointCloud(viewer, cluster, "obstacle_cloud "+std::to_string(cluster_id), colors[cluster_id]);
+
+        // render box
+        Box box = ppc->BoundingBox(cluster);
+        renderBox(viewer, box, cluster_id, colors[cluster_id], 1);
+
+        cluster_id++;
+    }
 }
 
 // Function Name: initCamera
