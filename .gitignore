@@ -38,3 +38,6 @@
 /build/compile_commands.json
 /build/environment
 /build/Makefile
+Lidar/build/*
+Lidar/.vscode/*
+**/build/*

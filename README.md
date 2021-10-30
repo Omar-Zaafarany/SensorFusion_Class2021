@@ -1,72 +1,59 @@
-# Sensor Fusion Self-Driving Car Course
+# Sensor Fusion NanoDegree- Camera Course
+Camera is the second course in the Sensor Fusion ND. The purpose of this repo is to provide the exercise code to the students, so that they can practice in local system. 
 
-<img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
+This repo contains lesson-wise exercises and corresponding solutions for Udacity's Sensor Fusion ND. 
 
-## Local Installation
+## A. List of Lesson-wise Exercises
+1. Lesson 2: Autonomous Vehicles and Computer Vision
+   - The OpenCV Library
+1. Lesson 3: Engineering a Collision Detection System
+   - Estimating TTC with Camera
+   - Estimating TTC with Lidar
+1. Lesson 4: Tracking Image Features
+   - Descriptor Matching
+   - Gradient-based vs. Binary Descriptors
+   - Haris Corner Detection
+   - Intensity Gradient and Filtering
+   - Overview of Popular Keypoint Detectors
+1. Lesson 5: Starter code for "Project: Camera Based 2D Feature Tracking" is available here - https://github.com/udacity/SFND_2D_Feature_Tracking
+1. Lesson 6: Combining Camera and Lidar
+   - Creating 3D-Objects
+   - Lidar-to-Camera Point Projection
+   - Object Detection with YOLO
+1. Lesson 7: Starter code for "Project: Track an Object in 3D Space" is available here - https://github.com/udacity/SFND_3D_Object_Tracking
 
-Versions used by Udacity for this ND are as follows:
 
-* Ubuntu 20.04.1 LTS
-* PCL - v1.7.2
-* C++ v11
-* gcc v5.5
-
-**Note** The [[CMakeLists.txt](https://github.com/udacity/SFND_Lidar_Obstacle_Detection/blob/master/CMakeLists.txt)] file provided in this repo can be used locally if you have the same package versions as mentioned above. If you want to run this project locally (outside the Udacity workspace), please follow the steps under the **Local Installation** section.
+## B. Dependencies for Running Locally
+1. cmake >= 2.8
+    * All OSes: [click here for installation instructions](https://cmake.org/install/)
 
 
-### Ubuntu
+2. make >= 4.1 (Linux, Mac), 3.81 (Windows)
+    * Linux: make is installed by default on most Linux distros
+    * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
+    * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
 
-1. Clone this github repo:
 
-   ```sh
-   cd ~
-   git clone https://github.com/Omar-Zaafarany/SensorFusion2021.git
-   ```
+3. OpenCV >= 4.1
+    * This must be compiled from source using the `-D OPENCV_ENABLE_NONFREE=ON` cmake flag for testing the SIFT and SURF detectors.
+    * The OpenCV 4.1.0 source code can be found [here](https://github.com/opencv/opencv/tree/4.1.0)
+    * check OpenCV.sh
 
-2.  Edit [CMakeLists.txt](https://github.com/udacity/SFND_Lidar_Obstacle_Detection/blob/master/CMakeLists.txt) as follows:
 
-   ```cmake
-   cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-   
-   add_definitions(-std=c++14)
-   
-   set(CXX_FLAGS "-Wall")
-   set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
-   
-   project(playback)
-   
-   find_package(PCL 1.10 REQUIRED)
-   include_directories(${PCL_INCLUDE_DIRS})
-   link_directories(${PCL_LIBRARY_DIRS})
-   add_definitions(${PCL_DEFINITIONS})
-   list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
-   
-   
-   add_executable (environment src/environment.cpp src/render/render.cpp src/processPointClouds.cpp)
-   target_link_libraries (environment ${PCL_LIBRARIES})
-   ```
+4. gcc/g++ >= 5.4 
+    * Linux: gcc / g++ is installed by default on most Linux distros
+    * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
+    * Windows: recommend using [MinGW](http://www.mingw.org/)
 
-3. Execute the following commands in a terminal
 
-   ```shell
-   sudo apt install libpcl-dev
-   cd ~/SFND_Lidar_Obstacle_Detection
-   mkdir build && cd build
-   cmake ..
-   make
-   ./environment
-   ```
-
-   This should install the latest version of PCL. You should be able to do all the classroom exercises and project with this setup.
-
-4. For debugging purposes, follow the below steps:
-	```
-	A. Install Visual Studio code
-	B. Install "C/C++" extention
-	C. Install "CMake" and "CMake Tools" extention
-	D. At the bottom of the screen, select CMake:debug:ready -> debug
-	E. Set the default build target to "environment"
-   F. Runa and Debug ctrl+shift+D -> create launch file ->> c++(GDB/LLDB)
-	F. At launch.json, set "program": "${workspaceFolder}/environment"
-	G. Select build, then Debug
-	```
+## C. Build Instructions
+1. Fork this repo to your Github account
+2. Clone your Github repo.
+3. Go to the top level directory for an exercise, and run the following commands on your terminal:
+```
+mkdir build && cd build
+cmake ..
+make
+./<Executable_File_Name>
+```
+4. Update back the remote (online) repo so that you can use the updated code in the classroom workspace. 	
