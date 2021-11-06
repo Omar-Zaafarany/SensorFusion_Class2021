@@ -67,7 +67,7 @@ void cornernessHarris()
 
     // https://www.pythonpool.com/opencv-keypoint/
 
-    double maxOverlap = 0.0; // max. permissible overlap between two features in %, used during non-maxima suppression
+    double maxOverlap = 0.0; // max. permissible overlap between two features in %, used during non-maxima suppression (tunning parameter)
     for (size_t j = 0; j < dst_norm.rows; j++)
     {
         for (size_t i = 0; i < dst_norm.cols; i++)
@@ -75,8 +75,9 @@ void cornernessHarris()
 
             int response = (int)dst_norm.at<float>(j, i);
             // cout << response << "   "<< dst_norm.at<float>(j, i) << "\n"; 
-            // cout << response << "   "<< dst_norm_scaled.at<int>(j, i) << "\n"<< "\n"<< "\n"; 
             // 71   71.7791
+
+            // cout << response << "   "<< dst_norm_scaled.at<int>(j, i) << "\n"<< "\n"<< "\n"; 
             // 71   1212696648
 
             if (response > minResponse)

@@ -17,7 +17,12 @@ void descKeypoints1()
     cv::cvtColor(img, imgGray, cv::COLOR_BGR2GRAY);
 
     // BRISK detector / descriptor
+
     cv::Ptr<cv::FeatureDetector> detector = cv::BRISK::create();
+    // cv::Ptr<cv::FeatureDetector> detector = cv::SIFT::create()
+    // cv::Ptr<cv::FeatureDetector> detector = cv::ORB::create();
+    // cv::Ptr<cv::FeatureDetector> detector = cv::AKAZE::create();
+
     vector<cv::KeyPoint> kptsBRISK;
 
     double t = (double)cv::getTickCount();
@@ -37,6 +42,15 @@ void descKeypoints1()
     cv::drawKeypoints(img, kptsBRISK, visImage, cv::Scalar::all(-1), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
     string windowName = "BRISK Results";
     cv::namedWindow(windowName, 1);
+    cout << "descBRISK.size = " << descBRISK.size << "\n"; 
+    // descBRISK.size = 2896 x 64
+    
+    cout << "kptsBRISK.size = " << kptsBRISK.size() << "\n";
+    // kptsBRISK.size = 2896
+
+    cout << "visImage.size = " << visImage.size() << "\n";
+    // visImage.size = [1242 x 375]
+
     imshow(windowName, visImage);
     cv::waitKey(0);
 

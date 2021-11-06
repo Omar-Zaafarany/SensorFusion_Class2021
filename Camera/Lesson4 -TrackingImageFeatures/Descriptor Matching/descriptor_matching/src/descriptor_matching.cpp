@@ -51,7 +51,8 @@ void matchDescriptors(cv::Mat &imgSource, cv::Mat &imgRef, vector<cv::KeyPoint> 
 
         // TODO : implement k-nearest-neighbor matching
         // TODO : filter matches using descriptor distance ratio test
-        vector<vector<cv::DMatch>> knn_matches;
+        vector<vector<cv::DMatch>> knn_matches; 
+        //[M1[n1,n2],M2[n1,n2],M3[n1,n2]]
         double t = (double)cv::getTickCount();
         matcher->knnMatch(descSource, descRef, knn_matches, 2); // finds the 2 best matches
         t = ((double)cv::getTickCount() - t) / cv::getTickFrequency();

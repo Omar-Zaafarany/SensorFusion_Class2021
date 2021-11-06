@@ -35,9 +35,9 @@ This repo contains lesson-wise exercises and corresponding solutions for Udacity
 
 
 3. OpenCV >= 4.1
+    * `Check OpenCV.sh`
     * This must be compiled from source using the `-D OPENCV_ENABLE_NONFREE=ON` cmake flag for testing the SIFT and SURF detectors.
     * The OpenCV 4.1.0 source code can be found [here](https://github.com/opencv/opencv/tree/4.1.0)
-    * check OpenCV.sh
 
 
 4. gcc/g++ >= 5.4 

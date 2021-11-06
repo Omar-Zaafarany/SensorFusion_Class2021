@@ -41,3 +41,4 @@
 Lidar/build/*
 Lidar/.vscode/*
 **/build/*
+**/.vscode/*

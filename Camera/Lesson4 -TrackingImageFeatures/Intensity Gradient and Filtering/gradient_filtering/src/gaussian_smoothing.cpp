@@ -29,8 +29,10 @@ void gaussianSmoothing1()
 
     // apply filter
     cv::Mat result;
-    // when ddepth=-1, the output image will have the same depth as the source.
+    // when depth=-1, the output image will have the same depth as the source.
     // default value (-1,-1) means that the anchor is at the kernel center.
+    // delta: optional value added to the filtered pixels before storing them in dst.
+    // https://docs.opencv.org/4.5.3/d4/d86/group__imgproc__filter.html#ga27c049795ce870216ddfb366086b5a04
     cv::filter2D(img, result, -1, kernel, cv::Point(-1, -1), 0, cv::BORDER_DEFAULT);
 
     // show result
