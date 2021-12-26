@@ -1,4 +1,2 @@
-# Sensor Fusion NanoDegree- Radar Course
-You can use https://octave-online.net/ to run most of the .m files
-
-<img src="Radar/Radar_.gif" width="700" height="400" />
+# Sensor Fusion NanoDegree- KalmanFilter Course
+<img src="KalmanFilter/KF.png" width="700" height="400" />
